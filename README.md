@@ -1,6 +1,40 @@
 [![Build Status](https://travis-ci.org/sovereign/sovereign.svg?branch=master)](https://travis-ci.org/sovereign/sovereign)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/460/badge)](https://bestpractices.coreinfrastructure.org/projects/460)
 
+Fork Notes
+==========
+
+* Targets Debian 9.x (DO Debian 64-bit 9.4)
+* Focuses on running a mail server (closer to only what is in https://mailinabox.email/)
+  - IMAP over SSL via Dovecot, complete with full text search provided by Solr.
+  - POP3 over SSL, also via Dovecot
+  - SMTP over SSL via Postfix, including a nice set of DNSBLs to discard spam before it ever hits your filters.
+  - Virtual domains for your email, backed by PostgreSQL.
+  - Spam fighting via Rspamd.
+  - Mail server verification using DKIM and DMARC so the Internet knows your mailserver is legit.
+  - <del>Secure on-disk storage for email and more via EncFS</del>.
+  - Webmail via Roundcube.
+  - <del>Mobile push notifications via Z-Push</del>.
+  - <del>Email client automatic configuration</del>.
+  - <del>Jabber/XMPP instant messaging via Prosody</del>.
+  - <del>An RSS Reader via Selfoss</del>.
+  - <del>CalDAV and CardDAV to keep your calendars and contacts in sync, via ownCloud</del>.
+  - <del>Your own private storage cloud via [ownCloud</del>.
+  - <del>Your own VPN server via [OpenVPN</del>.
+  - <del>An IRC bouncer via [ZNC</del>.
+  - <del>Monit</del>.
+  - <del>collectd</del>.
+  - <del>Web hosting (ex: for your blog) via Apache</del>.
+  - Firewall management via [Uncomplicated Firewall (ufw).
+  - Intrusion prevention via fail2ban and rootkit detection via rkhunter.
+  - SSH configuration preventing root login and insecure password authentication
+  - <delRFC6238 two-factor authentication compatible with Google Authenticator and various hardware tokens</del>
+  - <del>Nightly backups to Tarsnap</del>.
+  - <del>Git hosting via cgit and gitolite</del>.
+  - <del>Read-it-later via Wallabag</del>
+  - A bunch of nice-to-have tools like mosh and htop that make life with a server a little easier.
+* Use Nginx as web server (instead of Apache)
+
 Introduction
 ============
 
@@ -107,7 +141,7 @@ Your new account will be automatically set up for passwordless `sudo`. Or you ca
 ## On your local machine
 
 Ansible (the tool setting up your server) runs locally on your computer and sends commands to the remote server. Download this repository somewhere on your machine, either through `Clone or Download > Download ZIP` above, `wget`, or `git` as below
-    
+
     git clone https://github.com/sovereign/sovereign.git
 
 ### 4. Configure your installation
@@ -143,7 +177,7 @@ First, make sure you’ve [got Ansible 1.9.3+ installed](http://docs.ansible.com
 To run the whole dang thing:
 
     ansible-playbook -i ./hosts --ask-sudo-pass site.yml
-    
+
 If you chose to make a passwordless sudo deploy user, you can omit the `--ask-sudo-pass` argument.
 
 To run just one or more piece, use tags. I try to tag all my includes for easy isolated development. For example, to focus in on your firewall setup:
