@@ -6,14 +6,14 @@ Fork Notes
 
 * Targets Debian 9.x "stretch" (DO Debian 64-bit 9.4)
 * Focuses on running a mail server (closer to only what is in https://mailinabox.email/)
-  - TODO: IMAP over SSL via Dovecot, complete with full text search provided by Solr.
-  - TODO: POP3 over SSL, also via Dovecot
-  - TODO: SMTP over SSL via Postfix, including a nice set of DNSBLs to discard spam before it ever hits your filters.
-  - TODO: Virtual domains for your email, backed by PostgreSQL.
-  - TODO: Spam fighting via Rspamd.
-  - TODO: Mail server verification using DKIM and DMARC so the Internet knows your mailserver is legit.
+  - IMAP over SSL via Dovecot, complete with full text search provided by Solr.
+  - POP3 over SSL, also via Dovecot
+  - SMTP over SSL via Postfix, including a nice set of DNSBLs to discard spam before it ever hits your filters.
+  - Virtual domains for your email, backed by PostgreSQL.
+  - Spam fighting via Rspamd.
+  - Mail server verification using DKIM and DMARC so the Internet knows your mailserver is legit.
   - <del>Secure on-disk storage for email and more via EncFS</del>.
-  - TODO: Webmail via Roundcube.
+  - Webmail via Roundcube.
   - <del>Mobile push notifications via Z-Push</del>.
   - <del>Email client automatic configuration</del>.
   - <del>Jabber/XMPP instant messaging via Prosody</del>.
@@ -34,7 +34,7 @@ Fork Notes
   - <del>Read-it-later via Wallabag</del>
   - TODO: A bunch of nice-to-have tools like mosh and htop that make life with a server a little easier.
 * TODO: Use Nginx as web server (instead of Apache)
-* Solr uses tomcat8 in Debian 9.x 
+* Solr uses tomcat8 in Debian 9.x
 * Fix deprecation warning: `state=installed` to `state=present`
 * TODO: Fix deprecation warning: The sudo command line option has been deprecated in favor of the "become" command line arguments
 
