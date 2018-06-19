@@ -4,9 +4,9 @@
 ################################################################################
 
 # common
-domain: (required)
-main_user_name: (required)
-organization: (required)
+domain: velocimedia.com
+main_user_name: tech
+organization: Velocimedia
 
 # admin email
 # fail2ban reports will be sent to this address

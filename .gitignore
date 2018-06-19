@@ -2,3 +2,5 @@
 .vagrant/machines
 tests.pyc
 secret
+hosts-velocimedia
+group_vars/sovereign-velocimedia

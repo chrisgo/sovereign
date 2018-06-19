@@ -4,16 +4,16 @@
 Fork Notes
 ==========
 
-* Targets Debian 9.x (DO Debian 64-bit 9.4)
+* Targets Debian 9.x "stretch" (DO Debian 64-bit 9.4)
 * Focuses on running a mail server (closer to only what is in https://mailinabox.email/)
-  - IMAP over SSL via Dovecot, complete with full text search provided by Solr.
-  - POP3 over SSL, also via Dovecot
-  - SMTP over SSL via Postfix, including a nice set of DNSBLs to discard spam before it ever hits your filters.
-  - Virtual domains for your email, backed by PostgreSQL.
-  - Spam fighting via Rspamd.
-  - Mail server verification using DKIM and DMARC so the Internet knows your mailserver is legit.
+  - TODO: IMAP over SSL via Dovecot, complete with full text search provided by Solr.
+  - TODO: POP3 over SSL, also via Dovecot
+  - TODO: SMTP over SSL via Postfix, including a nice set of DNSBLs to discard spam before it ever hits your filters.
+  - TODO: Virtual domains for your email, backed by PostgreSQL.
+  - TODO: Spam fighting via Rspamd.
+  - TODO: Mail server verification using DKIM and DMARC so the Internet knows your mailserver is legit.
   - <del>Secure on-disk storage for email and more via EncFS</del>.
-  - Webmail via Roundcube.
+  - TODO: Webmail via Roundcube.
   - <del>Mobile push notifications via Z-Push</del>.
   - <del>Email client automatic configuration</del>.
   - <del>Jabber/XMPP instant messaging via Prosody</del>.
@@ -25,15 +25,18 @@ Fork Notes
   - <del>Monit</del>.
   - <del>collectd</del>.
   - <del>Web hosting (ex: for your blog) via Apache</del>.
-  - Firewall management via [Uncomplicated Firewall (ufw).
-  - Intrusion prevention via fail2ban and rootkit detection via rkhunter.
-  - SSH configuration preventing root login and insecure password authentication
+  - TODO: Firewall management via [Uncomplicated Firewall (ufw).
+  - TODO: Intrusion prevention via fail2ban and rootkit detection via rkhunter.
+  - TODO: SSH configuration preventing root login and insecure password authentication
   - <delRFC6238 two-factor authentication compatible with Google Authenticator and various hardware tokens</del>
   - <del>Nightly backups to Tarsnap</del>.
   - <del>Git hosting via cgit and gitolite</del>.
   - <del>Read-it-later via Wallabag</del>
-  - A bunch of nice-to-have tools like mosh and htop that make life with a server a little easier.
-* Use Nginx as web server (instead of Apache)
+  - TODO: A bunch of nice-to-have tools like mosh and htop that make life with a server a little easier.
+* TODO: Use Nginx as web server (instead of Apache)
+* Solr uses tomcat8 in Debian 9.x 
+* Fix deprecation warning: `state=installed` to `state=present`
+* TODO: Fix deprecation warning: The sudo command line option has been deprecated in favor of the "become" command line arguments
 
 Introduction
 ============

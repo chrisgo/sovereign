@@ -2,27 +2,22 @@
   stat: path=/var/www/roundcube/config.inc.php
   register: roundcube_config
 
-- name: Install roundcube dependencies
+- name: Install roundcube dependencies (PHP 7.x)
   apt: pkg={{ item }} state=present
   with_items:
-    - php5
-    - php5-sqlite
-    - php5-mcrypt
-    - php5-gd
-    - php5-pspell
-    - php5-intl
-    - php5-curl
+    - php
+    - php-sqlite
+    - php-mcrypt
+    - php-gd
+    - php-pspell
+    - php-intl
+    - php-curl
+    - php-mbstring
+    - php-dom
     - aspell
     - aspell-en
   tags:
     - dependencies
-
-- name: Clone roundcube
-  git: repo=https://github.com/roundcube/roundcubemail.git
-       dest=/var/www/roundcube
-       version={{ webmail_version }}
-       update=no
-       accept_hostkey=yes
 
 - name: Get Composer installer
   get_url: url=https://getcomposer.org/installer
@@ -36,13 +31,34 @@
 
 - name: Install Composer
   command: php /tmp/composer-installer
-           chdir=/root
-           creates=/root/composer.phar
+           chdir=/tmp
+
+- name: Move Composer to global path
+  command: mv /tmp/composer.phar /usr/local/bin/composer
+
+- name: Clone roundcube
+  git: repo=https://github.com/roundcube/roundcubemail.git
+       dest=/var/www/roundcube
+       version={{ webmail_version }}
+       update=no
+       accept_hostkey=yes
+
+- name: Create composer directory
+  file:
+    path: /var/www/roundcube/vendor
+    state: directory
+    mode: 0777
+
+- name: Change mode of /var/www/roundcube folder
+  file:
+    path: /var/www/roundcube
+    mode: 0777
 
 - name: Initialize composer
-  command: php /root/composer.phar install --no-dev
+  command: composer install --no-dev
            chdir=/var/www/roundcube
            creates=/var/www/roundcube/vendor/autoload.php
+  become: no
 
 - name: Remove installer directory
   file: path=/var/www/roundcube/installer state=absent
@@ -76,6 +92,12 @@
     group=www-data
     mode=0644
 
+- name: Create carddav directory
+  file:
+    path: /var/www/roundcube/plugins/carddav
+    state: directory
+    mode: 0777
+
 - name: Install carddav plugin configuration
   copy: src=var_www_roundcube_plugins_carddav_config.inc.php
     dest=/var/www/roundcube/plugins/carddav/config.inc.php
@@ -83,12 +105,12 @@
     group=www-data
     mode=0644
 
-- name: Install Google 2-factor authentication plugin configuration
-  copy: src=var_www_roundcube_plugins_twofactor_gauthenticator_config.inc.php
-    dest=/var/www/roundcube/plugins/twofactor_gauthenticator/config.inc.php
-    owner=root
-    group=www-data
-    mode=0644
+#- name: Install Google 2-factor authentication plugin configuration
+#  copy: src=var_www_roundcube_plugins_twofactor_gauthenticator_config.inc.php
+#    dest=/var/www/roundcube/plugins/twofactor_gauthenticator/config.inc.php
+#    owner=root
+#    group=www-data
+#    mode=0644
 
 - name: Configure Apache for Roundcube
   template: src=etc_apache2_sites-available_roundcube.j2
