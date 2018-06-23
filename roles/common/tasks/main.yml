@@ -69,8 +69,10 @@
   tags: encfs
 - include: users.yml
   tags: users
-- include: apache.yml
-  tags: apache
+#- include: apache.yml
+#  tags: apache
+- include: nginx.yml
+  tags: nginx
 - include: ssl.yml
   tags: ssl
 - include: letsencrypt.yml
@@ -85,4 +87,3 @@
 #  tags: google_auth
 - include: postgres.yml
   tags: postgres
-  
