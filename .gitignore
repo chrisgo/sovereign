@@ -1,6 +1,6 @@
 .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
 .vagrant/machines
-site.retry
 tests.pyc
 secret
 hosts-private.yml
+*.retry
