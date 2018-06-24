@@ -10,7 +10,9 @@
   notify: restart apache
 
 - name: Create ServerName configuration file for Apache
-  template: src=fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
+  template:
+    src: fqdn.j2
+    dest: /etc/apache2/conf-available/fqdn.conf
 
 - name: Set ServerName for Apache
   command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf

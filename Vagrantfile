@@ -34,6 +34,12 @@ Vagrant.configure('2') do |config|
     config.cache.scope = :box
   end
 
+  # Debian 9 64-bit (officially supported)
+  config.vm.define 'stretch', primary: true do |jessie|
+    stretch.vm.box = 'debian/stretch64'
+    stretch.vm.box_version = "9.4.0"
+  end
+
   # Debian 8 64-bit (officially supported)
   config.vm.define 'jessie', primary: true do |jessie|
     jessie.vm.box = 'box-cutter/debian8'

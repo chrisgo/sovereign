@@ -1,0 +1,12 @@
+---
+# This is the top-level playbook that will add domains to your install
+# @todo
+
+- hosts: all
+  user: deploy
+  become: True
+  gather_facts: True
+
+  roles:
+    #- common
+    - newdomain

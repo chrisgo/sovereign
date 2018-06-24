@@ -1,0 +1,64 @@
+---
+# Defines tasks applicable for Mariadb (default mysql server for Debian 9.x)
+
+- name: Specify MySQL root password before installing
+  # without this, auth_socket will be used for root@localhost, and we won't be able to set the password
+  debconf:
+    name: 'mysql-server'
+    question: 'mysql-server/root_password'
+    value: '{{ default_password | quote }}'
+    vtype: 'password'
+
+- name: Confirm MySQL root password before installing
+  debconf:
+    name: 'mysql-server'
+    question: 'mysql-server/root_password_again'
+    value: '{{ default_password | quote }}'
+    vtype: 'password'
+
+- name: Install Mariadb
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - mariadb-server
+    - python-mysqldb # for ansible to connect
+    - libmariadbclient-dev # needed for mariadb client binding
+  tags:
+    - dependencies
+
+- name: Accept outbound connections for selected users
+  mysql_user:
+    name: "{{ item }}"
+    host: "%"
+  with_items:
+    - root
+    - deploy
+
+- name: Bind to 0.0.0.0 to accept outbound connections
+  copy:
+    content: |
+      [mysqld]
+      bind-address = 0.0.0.0
+    dest: /etc/mysql/mariadb.conf.d/51-allow-outbound.cnf
+  notify: mysql restart
+
+#- name: Disallow root login remotely
+#  command: >
+#    mysql -NBe "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
+#  changed_when: False
+#  when: "'root' not in mariadb_accept_outbound_login_for_these_users"
+
+#- name: Set mariadb root password and privs
+#  mysql_user:
+#    name: root
+#    password: "{{ default_password|mandatory }}"
+#    host_all: yes
+#    priv: '*.*:ALL,GRANT'
+
+- name: Setup root client's root password
+  template:
+    src: mariadb_my_cnf.j2
+    dest: ~/.my.cnf
+    mode: 0600
+  notify: mysql restart

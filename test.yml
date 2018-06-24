@@ -1,0 +1,15 @@
+---
+# This is the top-level playbook that defines our entire infrastructure.
+
+- hosts: all
+  user: deploy
+  become: True
+  gather_facts: True
+
+  tasks:
+    - name: Test Debug
+      debug:
+        msg: "System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"
+    - name: Test Vault
+      debug:
+        msg: "Default Password {{ default_password }} and {{ ansible_sudo_pass }}"

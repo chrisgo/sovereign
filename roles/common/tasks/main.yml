@@ -10,7 +10,9 @@
     - dependencies
 
 - name: Install necessities and nice-to-haves
-  apt: pkg={{ item }} state=present
+  apt:
+    pkg: "{{ item }}"
+    state: present
   with_items:
     - acl
     - apache2
@@ -44,7 +46,9 @@
   register: common_timezone_config
 
 - name: timezone - Set localtime to UTC
-  file: src=/usr/share/zoneinfo/Etc/UTC dest=/etc/localtime
+  file:
+    src: /usr/share/zoneinfo/Etc/UTC
+    dest: /etc/localtime
   when: common_timezone_config.changed
 
 - name: timezone - reconfigure tzdata
@@ -52,13 +56,21 @@
   when: common_timezone_config.changed
 
 - name: Apticron email configuration
-  template: src=apticron.conf.j2 dest=/etc/apticron/apticron.conf
+  template:
+    src: apticron.conf.j2
+    dest: /etc/apticron/apticron.conf
 
 - name: Create decrypted directory (even if encfs isn't used)
-  file: state=directory path=/decrypted
+  file:
+    state: directory
+    path: /decrypted
 
 - name: Set decrypted directory permissions
-  file: state=directory path=/decrypted group=mail mode=0775
+  file:
+    state: directory
+    path: /decrypted
+    group: mail
+    mode: 0775
 
 - name: Ensure locale en_US.UTF-8 locale is present
   locale_gen:
@@ -69,6 +81,8 @@
   tags: encfs
 - include: users.yml
   tags: users
+- include: unbound.yml
+  tags: unbound
 #- include: apache.yml
 #  tags: apache
 - include: nginx.yml
@@ -85,5 +99,7 @@
   tags: ntp
 #- include: google_auth.yml
 #  tags: google_auth
-- include: postgres.yml
-  tags: postgres
+#- include: postgres.yml
+#  tags: postgres
+- include: mariadb.yml
+  tags: mariadb

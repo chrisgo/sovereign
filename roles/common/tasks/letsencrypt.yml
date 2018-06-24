@@ -10,7 +10,9 @@
     update_cache: yes
 
 - name: Install certbot
-  apt: pkg={{ item }} state=present
+  apt:
+    pkg: "{{ item }}"
+    state: present
   default_release: stretch-backports
   with_items:
     - certbot

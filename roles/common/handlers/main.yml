@@ -12,3 +12,9 @@
 
 - name: restart ssh
   service: name=ssh state=restarted
+
+- name: restart unbound
+  service: name=unbound state=restarted
+
+- name: restart mariadb
+  service: name=mysql state=restarted

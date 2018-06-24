@@ -1,0 +1,30 @@
+---
+# Defines tasks applicable for Unbound DNS resolver
+
+- name: Install unbound DNS Resolver
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dnsutils
+    - unbound
+  tags:
+    - dependencies
+
+- name: Update DNSSEC Root key
+  command: unbound-anchor -a /var/lib/unbound/root.key
+  become_user: unbound
+  notify:
+    - restart unbound
+
+- name: Install resolvconf
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - resolvconf
+
+- name: Set unbound as primary DNS resolver
+  command: echo "nameserver 127.0.0.1" >> /etc/resolvconf/resolv.conf.d/head
+  notify:
+    - restart unbound

@@ -1,8 +1,7 @@
 # Introduction
 
 * This was a fork of http://github.com/sovereign/sovereign (follow most of the steps here first)
-* Found this article: https://thomas-leister.de/en/mailserver-debian-stretch/ so will start incorporating some of the items here into this project.  Specifically, this article tells you exactly what you will get at the end of doing all this work (like IMAP/POP3/SMTP settings, etc.) - will update this more as things progress
-* Also some concepts taken from http://mailinabox.email
+* Read https://thomas-leister.de/en/mailserver-debian-stretch/ - this will give you idea of what to expect after you run this playbook
 
 # Goals
 
@@ -16,6 +15,12 @@
   * SMTP Server:
   * Also provide a webmail interface
 * Create 2nd playbook to enable you to add 2nd, 3rd, 4th domains to provide mail services for after the initial setup
+
+# Running
+
+```
+ansible-playbook -i hosts.yml --ask-vault-pass site.yml
+```
 
 # Fork Notes
 
@@ -34,18 +39,18 @@
   - <del>Jabber/XMPP instant messaging via Prosody</del>.
   - <del>An RSS Reader via Selfoss</del>.
   - <del>CalDAV and CardDAV to keep your calendars and contacts in sync, via ownCloud</del>.
-  - <del>Your own private storage cloud via [ownCloud</del>.
+  - <del>Your own private storage cloud via ownCloud</del>.
   - <del>Your own VPN server via OpenVPN</del>.
   - <del>An IRC bouncer via ZNC</del>.
   - <del>Monit</del>.
   - <del>collectd</del>.
   - <del>Web hosting (ex: for your blog) via Apache</del>.
-  - TODO: Firewall management via [Uncomplicated Firewall (ufw).
-  - TODO: Intrusion prevention via fail2ban and rootkit detection via rkhunter.
-  - TODO: SSH configuration preventing root login and insecure password authentication
+  - Firewall management via [Uncomplicated Firewall (ufw).
+  - Intrusion prevention via fail2ban and rootkit detection via rkhunter.
+  - SSH configuration preventing root login and insecure password authentication
   - <delRFC6238 two-factor authentication compatible with Google Authenticator and various hardware tokens</del>
   - <del>Nightly backups to Tarsnap</del>.
-  - <del>Git hosting via cgit and gitolite</del>.
+  - <del>Git hosting via cgit and gitolite</del> - try http://gitlab.com instead.
   - <del>Read-it-later via Wallabag</del>
   - TODO: A bunch of nice-to-have tools like mosh and htop that make life with a server a little easier.
 * TODO: Use Nginx as web server (instead of Apache)

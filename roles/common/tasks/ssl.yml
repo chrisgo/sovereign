@@ -12,10 +12,11 @@
   notify: restart apache
 
 - name: Add common Apache SSL config
-  template: src=etc_apache2_conf-available_ssl.conf.j2
-    dest=/etc/apache2/conf-available/ssl.conf
-    owner=root
-    group=root
+  template:
+    src: etc_apache2_conf-available_ssl.conf.j2
+    dest: /etc/apache2/conf-available/ssl.conf
+    owner: root
+    group: root
   notify: restart apache
 
 - name: Enable Apache SSL config

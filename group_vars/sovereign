@@ -4,9 +4,10 @@
 ################################################################################
 
 # common
-domain: velocimedia.com
-main_user_name: tech
-organization: Velocimedia
+#domain: (required)           # moved to hosts.yml
+#main_user_name: (required)   # moved to hosts.yml
+#organization: (required)     # moved to hosts.yml
+default_password: "{{ ansible_sudo_pass }}"
 
 # admin email
 # fail2ban reports will be sent to this address
