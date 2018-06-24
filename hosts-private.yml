@@ -3,7 +3,6 @@
 
 sovereign:
   hosts:
-    #host.example.net
     prd-www2.velocimedia.com
   vars:
     domain: velocimedia.com
