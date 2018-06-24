@@ -3,4 +3,4 @@
 site.retry
 tests.pyc
 secret
-hosts-private
+hosts-private.yml
