@@ -1,7 +1,7 @@
 ---
 # Defines tasks applicable for Mariadb (default mysql server for Debian 9.x)
 
-- name: Specify MySQL root password before installing
+- name: Specify Mariadb root password before installing
   # without this, auth_socket will be used for root@localhost, and we won't be able to set the password
   debconf:
     name: 'mysql-server'
@@ -9,7 +9,7 @@
     value: '{{ default_password | quote }}'
     vtype: 'password'
 
-- name: Confirm MySQL root password before installing
+- name: Confirm Mariadb root password before installing
   debconf:
     name: 'mysql-server'
     question: 'mysql-server/root_password_again'
@@ -27,13 +27,16 @@
   tags:
     - dependencies
 
-- name: Accept outbound connections for selected users
+- name: Create users for Mariadb
   mysql_user:
     name: "{{ item }}"
+    password: "{{ default_password|mandatory }}"
     host: "%"
+    priv: '*.*:ALL,GRANT'
   with_items:
     - root
     - deploy
+    - "{{ main_user_name }}"
 
 - name: Bind to 0.0.0.0 to accept outbound connections
   copy:
@@ -62,3 +65,13 @@
     dest: ~/.my.cnf
     mode: 0600
   notify: mysql restart
+
+- name: Set firewall rules for mariadb
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+    - mysql
+  notify: ufw restart
+  tags: ufw

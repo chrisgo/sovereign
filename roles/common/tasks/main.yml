@@ -81,6 +81,10 @@
   tags: encfs
 - include: users.yml
   tags: users
+- include: ntp.yml
+  tags: ntp
+- include: ufw.yml
+  tags: ufw
 - include: unbound.yml
   tags: unbound
 #- include: apache.yml
@@ -91,12 +95,8 @@
   tags: ssl
 - include: letsencrypt.yml
   tags: letsencrypt
-- include: ufw.yml
-  tags: ufw
 - include: security.yml
   tags: security
-- include: ntp.yml
-  tags: ntp
 #- include: google_auth.yml
 #  tags: google_auth
 #- include: postgres.yml

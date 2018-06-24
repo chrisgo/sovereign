@@ -5,6 +5,8 @@ friendly_networks:
   - ""
 
 # encfs
+# @todo also use sudo_pass for encfs - is this a good idea?
+#       encfs_password: "{{ default_password }}"
 secret_root: '{{ inventory_dir | realpath }}'
 secret_name: 'secret'
 secret: '{{ secret_root + "/" + secret_name }}'
